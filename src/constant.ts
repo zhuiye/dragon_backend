@@ -1,0 +1,4 @@
+export  const enum  Constant {
+   DATA_SOURCE='DATA_SOURCE',
+   COMPETITION_REPOSITORY='COMPETITION_REPOSITORY'
+}
