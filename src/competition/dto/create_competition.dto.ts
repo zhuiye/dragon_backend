@@ -1,5 +1,5 @@
 export class CreateCompetitionDto {
-    // competition_id: number;
+    competition_id: number;
 
     competition_name: string;
 

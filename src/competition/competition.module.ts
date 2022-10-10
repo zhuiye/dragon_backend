@@ -2,7 +2,8 @@ import { Module } from '@nestjs/common';
 import {  CompetitionService} from './competition.service';
 import { CompetitionController } from './competition.controller';
 import { DatabaseModule } from 'src/database/database.module';
-import { competitionProviders } from './competition.provider';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Competition } from './entities/competition.entity';
 
 /*
 
@@ -13,8 +14,8 @@ imports: [DatabaseModule],
   ],
 */
 @Module({
-  imports: [DatabaseModule],
+  imports: [TypeOrmModule.forFeature([Competition])],
   controllers: [CompetitionController],
-  providers: [...competitionProviders, CompetitionService]
+  providers: [CompetitionService]
 })
 export class CompetitionModule {}

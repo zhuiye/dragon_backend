@@ -1,39 +1,40 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Req } from '@nestjs/common';
 import { CompetitionService } from './competition.service';
 import { CreateCompetitionDto } from './dto/create_competition.dto';
+import {Response,Request} from 'express'
 // import { UpdateNoteDto } from './dto/update-note.dto';
 
 @Controller('competition')
 export class CompetitionController {
-  constructor(private readonly notesService: CompetitionService) {}
+  constructor(private readonly comService: CompetitionService) {}
 
   @Post('add')
-  async create(@Body() createNoteDto: CreateCompetitionDto) {
-    // console.log()
-    /*
+  async create(@Body() competitionDto: CreateCompetitionDto) {
 
-    */
-    return await this.notesService.create(createNoteDto);
+     
+      return  await this.comService.create(competitionDto);
   }
 
   @Get()
   async findAll() {
     // console.log("??hello")
-    return await this.notesService.findAll();
+    return await this.comService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.notesService.findOne(+id);
+  async findOne(@Param('id') id: string,@Res() response:Response) {
+    
+   response.status(200).send('hello world!!测试一下');
+    return await this.comService.findOne(+id);
   }
 
-//   @Patch(':id')
-//   async update(@Param('id') id: string, @Body() updateNoteDto: UpdateNoteDto) {
-//     // return await this.notesService.update(+id, updateNoteDto);
-//   }
+  @Post('update')
+  async update( @Body() updateDto: CreateCompetitionDto) {
+   return await this.comService.update(+updateDto.competition_id, updateDto);
+  }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return await this.notesService.remove(+id);
+  @Post('delete')
+  async remove(@Body() body: {competitionId:string}) {
+    return await this.comService.remove(+body.competitionId);
   }
 }

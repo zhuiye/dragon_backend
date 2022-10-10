@@ -1,6 +1,6 @@
 import { Constant } from 'src/constant';
 import { DataSource } from 'typeorm';
-import { Competition } from '../entities/competition.entity';
+import { Competition } from './entities/competition.entity';
 
 export const competitionProviders = [
   {
