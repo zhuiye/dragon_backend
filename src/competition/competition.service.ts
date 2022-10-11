@@ -1,10 +1,8 @@
 import { Injectable, } from '@nestjs/common';
 import { Repository, } from 'typeorm';
-import { Competition } from './entities/competition.entity';
+import { Competition } from './competition.entity';
 import { CreateCompetitionDto } from './dto/create_competition.dto';
-import { Constant } from 'src/constant';
 import { InjectRepository } from '@nestjs/typeorm';
-// import { UpdateNoteDto } from './dto/update-note.dto';
 
 @Injectable()
 export class CompetitionService {

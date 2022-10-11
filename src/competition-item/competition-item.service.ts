@@ -1,26 +1,50 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCompetitionItemDto } from './dto/create-competition-item.dto';
 import { UpdateCompetitionItemDto } from './dto/update-competition-item.dto';
+import {CompetitionItem} from './entities/competition-item.entity'
+
+import { Repository, } from 'typeorm';
+
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class CompetitionItemService {
+  constructor(
+    @InjectRepository(CompetitionItem)
+    private competitionItemRepository: Repository<CompetitionItem>
+  ) {}
+
   create(createCompetitionItemDto: CreateCompetitionItemDto) {
-    return 'This action adds a new competitionItem';
+    return this.competitionItemRepository.save(createCompetitionItemDto);
+  }
+
+  async getRelation(id:number){
+    /*
+     let photoRepository = connection.getRepository(Photo);
+    let photos = await photoRepository.find({ relations: ["metadata"] });
+    */
+    return this.competitionItemRepository.find({
+      relations:{"competition_item_sort":true},where:{
+competition_item_id:id
+      }})
   }
 
   findAll() {
-    return `This action returns all competitionItem`;
+    return this.competitionItemRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} competitionItem`;
+    return this.competitionItemRepository.find({where:{competition_item_id:id}});
+
   }
 
-  update(id: number, updateCompetitionItemDto: UpdateCompetitionItemDto) {
-    return `This action updates a #${id} competitionItem`;
+  update( updateCompetitionItemDto: UpdateCompetitionItemDto) {
+    return this.competitionItemRepository.update({competition_item_id:updateCompetitionItemDto.competition_item_id},updateCompetitionItemDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} competitionItem`;
+    return this.competitionItemRepository.delete({
+      competition_item_id:id
+    })
   }
 }

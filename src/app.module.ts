@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CompetitionModule } from './competition/competition.module'
 // import { DatabaseModule } from './database/database.module';
-import { CatsController } from './cats/cats.controller';
 import { CompetitionItemModule } from './competition-item/competition-item.module';
+import { CompetitionItemSortModule } from './competition-item-sort/competition-item-sort.module';
 
 @Module({
   imports: [
@@ -19,7 +19,8 @@ import { CompetitionItemModule } from './competition-item/competition-item.modul
     }),
     CompetitionModule,
     CompetitionItemModule,
+    CompetitionItemSortModule,
   ],
-  controllers: [CatsController]
+  controllers: []
 })
 export class AppModule {}

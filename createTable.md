@@ -1,6 +1,6 @@
 # 设计
 
-## 前沿
+## 前言
 
 [区别辨析](https://www.tjxz.cc/10506) competition(普通)、contest(音乐，书法，演讲) 与 match(两者)
 
@@ -19,8 +19,8 @@
    */
   CREATE TABLE IF NOT EXISTS `competition`(
    `competition_id` INT UNSIGNED AUTO_INCREMENT,
-   `competition_name` VARCHAR(200) NOT NULL,
-   `competition_content` varchar(200) NULL,
+   `competition_name` VARCHAR(1000) NOT NULL,
+   `competition_content` VARCHAR(1000) NULL,
    `competition_sign_up_start_time` int   ,
    `competition_sign_up_end_time` int ,
    `competition_start_time`  int NOT NULL,
@@ -55,9 +55,10 @@
   CREATE TABLE IF NOT EXISTS `competition_item_sort`(
     `competition_item_id` int,
     `competition_item_inner_id` int,
-    `competition_item_inner_name` VARCHAR(20),
+    `competition_item_inner_name` VARCHAR(50),
     `competition_item_inner_gender` int ,
-    `competition_item_number` int
+    `competition_item_number` int,
+     PRIMARY KEY (`competition_item_inner_id` )
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
   /*
@@ -91,7 +92,7 @@
     `team_creator` varchar(20),
     `team_creator_id` INT UNSIGNED
     `is_seed`  int,
-    `last_score` int NULL,
+    `last_score` FLOAT NULL,
      PRIMARY KEY ( `team_id` )
  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -130,7 +131,8 @@
  /* 0:领队，1:教练，2:鼓手，3:舵手，4:划手，5:替补 */
  CREATE TABLE IF NOT EXISTS `dragon_post`(
     `dragon_post_id` INT UNSIGNED,
-    `dragon_post_name` varchar(20)
+    `dragon_post_name` varchar(20),
+    PRIMARY KEY ( `dragon_post_name` )
  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -152,25 +154,16 @@
         `competition_id` INT UNSIGNED,
         `team_id` INT,
         `team_player_ids`:varchar(200),
-        `submit_time` INT,
+        `submit_time` BIGINT,
         `competition_item_id` INT UNSIGNED
         `competition_item_inner_id` INT UNSIGNED
         `status` INT UNSIGNED
-        ``
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
   /*编排分组数设定表*/
 
-  CREATE TABLE IF NOT EXISTS `competition_sign_up`(
-        `competition_id` INT UNSIGNED,
-        `team_id` INT,
-        `team_player_ids`:varchar(200),
-        `submit_time` INT,
-        `competition_item_id` INT UNSIGNED,
-        `competition_item_inner_id` INT UNSIGNED,
-        `status` INT UNSIGNED
-  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
   /*
      赛道数:4
@@ -198,13 +191,13 @@
  )
 
  # 分组模式绑定比赛类别表
-
-  CREATE TABLE IF NOT EXISTS `competition_items_bind_divide_group`(
+ CREATE TABLE IF NOT EXISTS `competition_items_bind_divide_group`(
     `competition_id` INT UNSIGNED,
     `competition_item_id` INT UNSIGNED,
     `competition_item_inner_id` INT UNSIGNED,
     `divide_group_id`  INT UNSIGNED,
- )
+     PRIMARY KEY ( `competition_id`,`competition_item_id`, `competition_item_inner_id`,`divide_group_id`)
+ )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 /*
@@ -212,44 +205,37 @@
 
 */
 
-CREATE TABLE IF NOT EXISTS `competition_group` {
+CREATE TABLE IF NOT EXISTS `competition_group` (
   `competition_id` int ,
   `competition_item_id` INT UNSIGNED,
-  `competition_item_name` INT,
+  `competition_item_name` varchar(50),
   `competition_item_inner_id` INT,
-  `competition_item_inner_name` varchar(20),
+  `competition_item_inner_name` varchar(50),
   `competition_round_type` INT, # 0 预赛，1 复赛，2半决，3排位赛，4小半决，5 决赛
-  `competition_round_number` INT, // 第几组
+  `competition_round_number` INT, # 第几组
   `competition_team_count` int , # 队数，
   `remark` varchar(20)  # 备注
-}ENGINE=InnoDB DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
 # 竞赛日程安排表
  CREATE TABLE IF NOT EXISTS `competition_timeline`(
-        `competition_id` int ,
-        `competition_item_id` INT UNSIGNED,
-        `competition_item_name` INT,
-        `competition_item_inner_id` INT,
-        `competition_item_inner_name` varchar(20),
-        `contest_start_time` int, # 比赛开始时间
-        `competition_round` varchar(20), #竞赛次序，第几轮，等等。
-        `competition_team_number` int , # 队数，
-        `remark` varchar(20)  # 备注
-  )
+         `competition_date` BIGINT,
+         `competition_id` int ,
+         `competition_item_id` INT UNSIGNED,
+         `competition_item_name` varchar(50),
+         `competition_item_inner_id` INT,
+         `competition_item_inner_name` varchar(50),
+         `competition_round_type` INT, # 0 预赛，1 复赛，2半决，3排位赛，4小半决，5 决赛
+         `competition_round_number` INT, # 第几组
+         `competition_team_count` int , # 队数，
+         `competition_remark_id` int,
+         `remark` varchar(20)  # 备注
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-  # 分配队伍到初赛预赛中
 
-  CREATE TABLE IF NOT EXISTS `competition_timeline`(
-     `competition_id` int ,
-     `competition_item_id` INT UNSIGNED,
-     `competition_item_inner_id` INT,
-     `team_id` INT UNSIGNED,
-     `track_number` INT UNSIGNED  # 1,2,3,4,5,6,7,8
-     `competition_round_type` INT, # 0 预赛，1 复赛，2半决，3排位赛，4小半决，5 决赛
-     `competition_round_number` INT, // 第几组
-  )
+
 
   # 成绩录入表
 
@@ -262,8 +248,10 @@ CREATE TABLE IF NOT EXISTS `competition_group` {
      `competition_round_type` INT, # 0 预赛，1 复赛，2半决，3排位赛，4小半决，5 决赛
      `competition_round_number` INT, // 第几组
      `score` INT,
-     `submit_time` INT
-  )
+     `submit_time` BIGINT,
+     PRIMARY KEY ( `player_id` )
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 
@@ -275,16 +263,20 @@ CREATE TABLE IF NOT EXISTS `competition_group` {
 # 用户登陆表
 
   CREATE TABLE IF NOT EXISTS `user`(
+     `user_id` int auto_increment,
      `account` int ,
      `password` INT UNSIGNED,
-     `role` INT,
-  )
-# 角色登陆表
+     `role_id` INT,
+     PRIMARY KEY ( `user_id` )
 
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+# 角色表
 CREATE TABLE IF NOT EXISTS `role`(
-     `roleId` int ,
+     `role_id` int auto_increment,
      `roleName` INT UNSIGNED,
-  )
+     PRIMARY KEY ( `role_id` )
+
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 

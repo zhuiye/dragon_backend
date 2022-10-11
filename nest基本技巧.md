@@ -17,3 +17,10 @@
 ```
 $ nest g resource users
 ```
+
+## 坑点
+
+- NestJS - Controller - Get(':id') returned 404
+  https://stackoverflow.com/questions/67851619/nestjs-controller-getid-returned-404
+
+- https://stackoverflow.com/questions/72864723/which-is-better-in-typeorm-save-or-update/72865592

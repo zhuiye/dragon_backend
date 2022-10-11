@@ -8,33 +8,31 @@ import {Response,Request} from 'express'
 export class CompetitionController {
   constructor(private readonly comService: CompetitionService) {}
 
-  @Post('add')
+  @Post()
   async create(@Body() competitionDto: CreateCompetitionDto) {
-
-     
+      /**这个到没什么的 */
       return  await this.comService.create(competitionDto);
   }
 
   @Get()
   async findAll() {
-    // console.log("??hello")
+   
     return await this.comService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string,@Res() response:Response) {
-    
-   response.status(200).send('hello world!!测试一下');
+  async findOne(@Param('id') id: string) {
     return await this.comService.findOne(+id);
   }
 
-  @Post('update')
+  @Patch()
   async update( @Body() updateDto: CreateCompetitionDto) {
-   return await this.comService.update(+updateDto.competition_id, updateDto);
+   return await this.comService.update(updateDto.competition_id,updateDto);
   }
 
-  @Post('delete')
-  async remove(@Body() body: {competitionId:string}) {
-    return await this.comService.remove(+body.competitionId);
+  @Delete()
+  async remove( @Body() params :any) {
+    // console.log(params)
+    return await this.comService.remove(params.competition_id);
   }
 }
