@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
-import { CompetitionItemSortService } from './competition-item-sort.service';
-import { CreateCompetitionItemSortDto } from './dto/create-competition-item-sort.dto';
-import { UpdateCompetitionItemSortDto } from './dto/update-competition-item-sort.dto';
+import { ItemSortService } from './item-sort.service';
+import { CreateItemSortDto } from './dto/create-item-sort.dto';
+import { UpdateItemSortDto } from './dto/update-item-sort.dto';
 
 @Controller('competition-item-sort')
 export class CompetitionItemSortController {
-  constructor(private readonly competitionItemSortService: CompetitionItemSortService) {}
+  constructor(private readonly competitionItemSortService: ItemSortService) {}
 
   @Post()
-  create(@Body() createCompetitionItemSortDto: CreateCompetitionItemSortDto) {
+  create(@Body() createCompetitionItemSortDto: CreateItemSortDto) {
     
     return this.competitionItemSortService.create(createCompetitionItemSortDto);
   }
@@ -29,7 +29,7 @@ export class CompetitionItemSortController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCompetitionItemSortDto: UpdateCompetitionItemSortDto) {
+  update(@Param('id') id: string, @Body() updateCompetitionItemSortDto: UpdateItemSortDto) {
     return this.competitionItemSortService.update(+id, updateCompetitionItemSortDto);
   }
 

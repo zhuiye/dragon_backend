@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
-import { CompetitionItemService } from './competition-item.service';
-import { CreateCompetitionItemDto } from './dto/create-competition-item.dto';
-import { UpdateCompetitionItemDto } from './dto/update-competition-item.dto';
+import { ItemService } from './item.service';
+import { CreateItemDto } from './dto/create-item.dto';
+import { UpdateItemDto } from './dto/update-item.dto';
 
 @Controller('competition-item')
 export class CompetitionItemController {
-  constructor(private readonly competitionItemService: CompetitionItemService) {}
+  constructor(private readonly competitionItemService:ItemService) {}
 
   @Post()
-  create(@Body() createCompetitionItemDto: CreateCompetitionItemDto) {
+  create(@Body() createCompetitionItemDto: CreateItemDto) {
     return this.competitionItemService.create(createCompetitionItemDto);
   }
 
@@ -28,8 +28,8 @@ export class CompetitionItemController {
   }
 
   @Patch()
-  update( @Body() updateCompetitionItemDto: UpdateCompetitionItemDto) {
-    return this.competitionItemService.update(updateCompetitionItemDto);
+  update( @Body() updateItemDto: UpdateItemDto) {
+    return this.competitionItemService.update(updateItemDto);
   }
 
   @Delete(':id')

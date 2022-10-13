@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CompetitionModule } from './competition/competition.module'
-import { CompetitionItemModule } from './competition-item/competition-item.module';
-import { CompetitionItemSortModule } from './competition-item-sort/competition-item-sort.module';
+import { CompetitionModule } from './modules/competition/competition.module'
+import { CompetitionItemModule } from './modules/item/item.module';
+import { CompetitionItemSortModule } from './modules/item-sort/item-sort.module';
 
 const ormConfig=require('../ormConfig.json')
 @Module({

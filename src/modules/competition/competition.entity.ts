@@ -4,23 +4,23 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 export class Competition{
 
     @PrimaryGeneratedColumn()
-    competition_id: number;
+    id: number;
 
     @Column({length:1000})
-    competition_name: string;
+    name: string;
 
     @Column({length:1000})
-    competition_content: string;
+    content: string;
 
     @Column("bigint")
-    competition_sign_up_start_time: number;
+    sign_up_start_time: number;
 
     @Column("bigint")
-    competition_sign_up_end_time: number;
+    sign_up_end_time: number;
 
     @Column("bigint")
-    competition_start_time: number;
+    start_time: number;
 
     @Column("bigint")
-    competition_end_time:number
+    end_time:number
 }
