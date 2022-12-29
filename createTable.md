@@ -30,7 +30,7 @@
 
   /*
       competition_item_id:1,
-      competition_item_id: 100 米直道
+      competition_item_name: 100 米直道
 
       id:2,
       competition_item_name: 200 米直道
@@ -244,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `competition_group` (
      `competition_item_id` INT UNSIGNED,
      `competition_item_inner_id` INT,
      `team_id` INT UNSIGNED,
-     `track_number` INT UNSIGNED  # 1,2,3,4,5,6,7,8
+     `track_no` INT UNSIGNED  # 1,2,3,4,5,6,7,8
      `competition_round_type` INT, # 0 预赛，1 复赛，2半决，3排位赛，4小半决，5 决赛
      `competition_round_number` INT, // 第几组
      `score` INT,
