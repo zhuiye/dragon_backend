@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Request, Response, NextFunction } from 'express';
 import { createNamespace } from 'cls-hooked';
-import { accessLogger } from '@common/logger';
+import { accessLogger } from './logger';
 import * as _ from 'lodash';
 
 export const clsNamespace = createNamespace('app');

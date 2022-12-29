@@ -6,8 +6,8 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { ErrorException } from './error.exception';
-import { errorLogger } from '@common/logger';
-import { clsNamespace } from '@common/request.middleware';
+import { errorLogger } from './logger';
+import { clsNamespace } from './request.middleware';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {

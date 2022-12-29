@@ -3,11 +3,12 @@ import {
   ExecutionContext,
   Injectable,
   NestInterceptor,
+  RequestTimeoutException
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { clsNamespace } from '@common/request.middleware';
-
+import { clsNamespace } from './request.middleware';
+import { Observable, throwError, TimeoutError } from 'rxjs';
+import { catchError, timeout } from 'rxjs/operators';
 export interface Response<T> {
   data: T;
 }
@@ -38,6 +39,13 @@ export class TransformInterceptor<T>
           t: new Date().getTime(),
           traceID: clsNamespace.get('traceID'),
         };
+      }),
+      timeout(5000),
+      catchError(err => {
+        if (err instanceof TimeoutError) {
+          return throwError(() => new RequestTimeoutException());
+        }
+        return throwError(() => err);
       }),
     );
   }

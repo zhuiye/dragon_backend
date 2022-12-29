@@ -12,9 +12,7 @@ export class CompetitionService {
   ) {}
 
   async create(createNoteDto: CreateCompetitionDto) {
-    // createNoteDto.createTime = createNoteDto.updateTime = new Date();
-    // createNoteDto.isDelete = false;
-    // console.log(createNoteDto)
+   
     return  await this.competitionRepository.save(createNoteDto)
   }
 

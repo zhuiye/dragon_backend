@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import {ItemLink} from  './index'
 export class CreateCompetitionDto {
     
     @IsNotEmpty()
@@ -14,5 +15,8 @@ export class CreateCompetitionDto {
 
     readonly start_time: number;
 
-    readonly end_time:number
+    readonly end_time:number;
+
+    readonly item_link:ItemLink[];
+
 }

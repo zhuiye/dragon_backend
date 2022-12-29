@@ -1,11 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Req, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Req, Put,Inject } from '@nestjs/common';
 import { CompetitionService } from './competition.service';
 import { CreateCompetitionDto } from './dto';
 import {Response,Request} from 'express'
 
 @Controller('competition')
 export class CompetitionController {
-  constructor(private readonly competitionService: CompetitionService) {}
+  constructor(private readonly competitionService: CompetitionService,
+    @Inject('CONFIG')
+    private  gconfig:any) {}
 
   @Post()
   async create(@Body() competitionDto: CreateCompetitionDto) {
@@ -19,6 +21,8 @@ export class CompetitionController {
 
   @Get()
   async findAll() {
+
+    // return this.gconfig
     const data=await   this.competitionService.findAll();
 
     return data.reverse()
