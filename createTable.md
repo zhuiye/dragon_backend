@@ -111,14 +111,14 @@
  */
 
   # 团队人员表  性别：待设定，队员id，队员民，性别，电话号码，年龄，职务
-  CREATE TABLE IF NOT EXISTS `dragon_team_player`(
+  CREATE TABLE IF NOT EXISTS `player`(
     `team_id` INT ,
     `player_id` INT UNSIGNED AUTO_INCREMENT,
     `player_name` varchar(20) not null,
     `gender`  int ,
     `phone_number` varchar(20),
     `age`  int ,
-    `dragon_post_id` int UNSIGNED,
+    `post_id` int UNSIGNED,
     `identify_number` varchar(20),
     `image_url`  varchar(20) null ,
     `is_register_success` int,
@@ -150,16 +150,19 @@
       status:'成功|失败|待审核'
 
   */
-  CREATE TABLE IF NOT EXISTS `competition_sign_up`(
+  CREATE TABLE IF NOT EXISTS `sign_up`(
+        `sign_up_id` INT UNSIGNED AUTO_INCREMENT,
         `competition_id` INT UNSIGNED,
         `team_id` INT,
-        `team_player_ids`:varchar(200),
-        `submit_time` BIGINT,
-        `competition_item_id` INT UNSIGNED
-        `competition_item_inner_id` INT UNSIGNED
-        `status` INT UNSIGNED
-  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        `player_ids`:varchar(500),
+        `submit_time` BIGINT Null,
+        `item_id` INT UNSIGNED Null,
+        `sort_item_id` INT UNSIGNED Null,
+        `sort_item_relation` varchar(10000),
+        `status` INT UNSIGNED Null,
+        PRIMARY KEY (`sign_up_id` )
 
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
   /*编排分组数设定表*/
 
@@ -220,39 +223,44 @@ CREATE TABLE IF NOT EXISTS `competition_group` (
 
 
 # 竞赛日程安排表
- CREATE TABLE IF NOT EXISTS `competition_timeline`(
-         `competition_date` BIGINT,
+ CREATE TABLE IF NOT EXISTS `timeline`(
+
+         `id`:INT UNSIGNED AUTO_INCREMENT ,
          `competition_id` int ,
-         `competition_item_id` INT UNSIGNED,
-         `competition_item_name` varchar(50),
-         `competition_item_inner_id` INT,
-         `competition_item_inner_name` varchar(50),
-         `competition_round_type` INT, # 0 预赛，1 复赛，2半决，3排位赛，4小半决，5 决赛
-         `competition_round_number` INT, # 第几组
-         `competition_team_count` int , # 队数，
-         `competition_remark_id` int,
-         `remark` varchar(20)  # 备注
+         `date` BIGINT,
+         什么项目，
+
+         `round_type` INT,
+         `round_number` INT, # 第几组
+         `team_count` int , # 队数，
+
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+  # 应该有一个编排表:
+
+  轮次，组别，时间，龙舟道:(1,2,3,4,5,6,7,8),
 
 
   # 成绩录入表
 
-    CREATE TABLE IF NOT EXISTS `competition_score`(
+    CREATE TABLE IF NOT EXISTS `score`(
+      `id`:INT UNSIGNED AUTO_INCREMENT ,
      `competition_id` int ,
-     `competition_item_id` INT UNSIGNED,
-     `competition_item_inner_id` INT,
      `team_id` INT UNSIGNED,
-     `track_no` INT UNSIGNED  # 1,2,3,4,5,6,7,8
-     `competition_round_type` INT, # 0 预赛，1 复赛，2半决，3排位赛，4小半决，5 决赛
-     `competition_round_number` INT, // 第几组
+     `track_no` INT UNSIGNED ,
+     `model` INT UNSIGNED ,#  采取什么境界方式
+     `round_type` INT, # 0 预赛，1 复赛，2半决，3排位赛，4小半决，5 决赛
+     `round_number` INT, // 第几组
      `score` INT,
      `submit_time` BIGINT,
      PRIMARY KEY ( `player_id` )
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*
+      都
 
+*/
 
 
 
