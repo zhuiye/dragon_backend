@@ -1,8 +1,8 @@
 
 
 export class CreateItemSortDto {
-    item_id:number
-    item_inner_name:string
-    item_inner_gender: number
-    item_number:number
+    sort_id:number
+    sort_name:string
+    sort_gender: string
+    sort_number:number
 }

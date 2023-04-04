@@ -3,7 +3,7 @@ import { ItemSortService } from './item-sort.service';
 import { CreateItemSortDto } from './dto/create-item-sort.dto';
 import { UpdateItemSortDto } from './dto/update-item-sort.dto';
 
-@Controller('competition-item-sort')
+@Controller('item-sort')
 export class CompetitionItemSortController {
   constructor(private readonly competitionItemSortService: ItemSortService) {}
 
@@ -13,10 +13,6 @@ export class CompetitionItemSortController {
     return this.competitionItemSortService.create(createCompetitionItemSortDto);
   }
 
-  @Get('/relations')
-  getRelation(@Query() query:any) {
-    return this.competitionItemSortService.getRelation(query.id);
-  }
 
   @Get()
   findAll() {
@@ -28,13 +24,14 @@ export class CompetitionItemSortController {
     return this.competitionItemSortService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCompetitionItemSortDto: UpdateItemSortDto) {
-    return this.competitionItemSortService.update(+id, updateCompetitionItemSortDto);
+  @Patch()
+  update( @Body() updateCompetitionItemSortDto: UpdateItemSortDto) {
+    console.log('..')
+    return this.competitionItemSortService.update(updateCompetitionItemSortDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.competitionItemSortService.remove(+id);
+  @Delete()
+  remove(@Body() delDto:any ) {
+    return this.competitionItemSortService.remove(delDto);
   }
 }

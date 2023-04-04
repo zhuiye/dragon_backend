@@ -18,16 +18,6 @@ export class ItemService {
     return this.ItemRepository.save(createItemDto);
   }
 
-  async getRelation(id:number){
-    /*
-     let photoRepository = connection.getRepository(Photo);
-    let photos = await photoRepository.find({ relations: ["metadata"] });
-    */
-    return this.ItemRepository.find({
-      relations:{"item_sort":true},where:{
-item_id:id
-      }})
-  }
 
   findAll() {
     return this.ItemRepository.find();
@@ -42,9 +32,7 @@ item_id:id
     return this.ItemRepository.update({item_id:updateItemDto.item_id},updateItemDto);
   }
 
-  remove(id: number) {
-    return this.ItemRepository.delete({
-      item_id:id
-    })
+  remove(delDto:any) {
+    return this.ItemRepository.delete(delDto)
   }
 }

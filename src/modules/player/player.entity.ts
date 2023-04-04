@@ -1,27 +1,33 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+@Entity()
 export class Player {
     @PrimaryGeneratedColumn()
-    play_id: number;
+    player_id: number;
 
-    @Column({length:50})
-    name:number;
+    @Column()
+    player_name:string;
+
+    @Column()
 
     gender:number;
 
-    @Column({length:13})
+    @Column()
     phone_number:string;
 
+    @Column()
     age:number;
 
-    @Column({length:30})
+    @Column()
     identify_number:number;
 
+    @Column()
     post_id:number
 
-    @Column({length:50})
+    @Column()
     image_url:string;
 
-    is_register_success:number
+    @Column()  //  导入者id
+    user_id:number
 
    
 }

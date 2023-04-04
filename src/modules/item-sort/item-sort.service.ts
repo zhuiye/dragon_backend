@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { CreateItemSortDto } from './dto/create-item-sort.dto';
 import { UpdateItemSortDto } from './dto/update-item-sort.dto';
 import {ItemSort} from './item-sort.entity'
-import {Item} from '../item/item.entity'
 import { Repository, } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,47 +9,36 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class ItemSortService {
   constructor(
     @InjectRepository(ItemSort)
-    private readonly ItemSortRepository: Repository<ItemSort>,
-    @InjectRepository(Item)
-    private readonly competitionItemRepository: Repository<Item>
+    private readonly ItemSortRepository: Repository<ItemSort>
   ) {}
 
   async create(createItemSortDto: CreateItemSortDto) {
     
-    const id=createItemSortDto.item_id;
     
-    const newItemSort=await  this.ItemSortRepository.save(createItemSortDto)
-    
-    const competitionItem=await this.competitionItemRepository.findOne({where:{item_id:id,},relations:['competition_item_sort']})
-    
-    competitionItem.item_sort.push(newItemSort)
+     return await  this.ItemSortRepository.save(createItemSortDto)
 
-     await this.competitionItemRepository.save(competitionItem)
-    
-
-    return newItemSort
   }
 
-  getRelation(id:any){
-    return this.ItemSortRepository.find({
-      where:{item_inner_id:id,},
-      relations:["competition_item"]
-    })
-  }
-
+ 
   findAll() {
     return this.ItemSortRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} ItemSort`;
+    return this.ItemSortRepository.find({where:{sort_id:id}});
+
   }
 
-  update(id: number, updateItemSortDto: UpdateItemSortDto) {
-    return `This action updates a #${id} ItemSort`;
+  update(updateItemSortDto: UpdateItemSortDto) {
+
+    return this.ItemSortRepository.update({
+      sort_id:(updateItemSortDto.sort_id) 
+    },updateItemSortDto)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} ItemSort`;
+  remove(delDto: any) {
+    
+    return this.ItemSortRepository.delete(delDto)
+
   }
 }

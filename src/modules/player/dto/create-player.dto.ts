@@ -1,9 +1,8 @@
 
 export class CreatePlayerDto {
-    team_id:number;
-    name:number;
+    player_name:string;
     gender:number;
-    phone_number:number;
+    phone_number:string;
     age:number;
     identify_number:number;
     post_id:number

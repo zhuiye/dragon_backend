@@ -6,5 +6,5 @@
     "password": "password",
     "database": "dragon_sys",
     "autoLoadEntities": true,
-    "synchronize": true
+    "synchronize": false
 }

@@ -14,17 +14,17 @@ export class CompetitionController {
       return  await this.competitionService.create(competitionDto);
   }
 
-  @Put(':id')
+  @Patch(':id')
   async update(@Param('id') id:string, @Body() updateDto: CreateCompetitionDto) {
    return await this.competitionService.update(+id,updateDto);
   }
 
   @Get()
   async findAll() {
+    
 
-    // return this.gconfig
-    const data=await   this.competitionService.findAll();
-
+     const data=await   this.competitionService.findAll();
+     
     return data.reverse()
   }
 

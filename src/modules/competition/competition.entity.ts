@@ -26,8 +26,8 @@ export class Competition{
     end_time:number
 
     // 绑定比赛项目
-    @Column("simple-json")
-    item_link: ItemLink[]
+    // @Column("simple-json")
+    // item_link: ItemLink[]
     
 }
 

@@ -22,13 +22,13 @@ export class TeamController {
     return this.teamService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTeamDto: UpdateTeamDto) {
-    return this.teamService.update(+id, updateTeamDto);
+  @Patch()
+  update( @Body() updateTeamDto: UpdateTeamDto) {
+    return this.teamService.update(updateTeamDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.teamService.remove(+id);
+  @Delete()
+  remove(@Body() delDot) {
+    return this.teamService.remove(delDot);
   }
 }
