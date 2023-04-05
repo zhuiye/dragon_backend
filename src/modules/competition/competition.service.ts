@@ -29,8 +29,8 @@ export class CompetitionService {
     return await this.competitionRepository.update(competitionId, updateCompetitionDto);
   }
 
-  async remove(competitionId: number) {
-    return await this.competitionRepository.delete(competitionId);
+  async remove(delObj:any) {
+    return await this.competitionRepository.delete(delObj);
   }
 }
 

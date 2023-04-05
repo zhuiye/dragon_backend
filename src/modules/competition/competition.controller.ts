@@ -36,6 +36,6 @@ export class CompetitionController {
 
   @Delete()
   async remove( @Body() params :any) {
-    return await this.competitionService.remove(params.competition_id);
+    return await this.competitionService.remove(params);
   }
 }

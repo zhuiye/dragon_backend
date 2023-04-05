@@ -32,6 +32,7 @@ export class CompetitionItemSortController {
 
   @Delete()
   remove(@Body() delDto:any ) {
+    console.log('美心情')
     return this.competitionItemSortService.remove(delDto);
   }
 }

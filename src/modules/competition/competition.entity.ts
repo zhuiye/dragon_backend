@@ -1,5 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column,OneToMany } from "typeorm";
-import {ItemLink} from './dto'
 
 @Entity()
 export class Competition{
@@ -26,8 +25,8 @@ export class Competition{
     end_time:number
 
     // 绑定比赛项目
-    // @Column("simple-json")
-    // item_link: ItemLink[]
+    @Column("simple-json")  // 待罪
+    item_sort_link:string
     
 }
 

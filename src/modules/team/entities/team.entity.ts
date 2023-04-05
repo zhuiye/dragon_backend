@@ -24,5 +24,7 @@ export class Team {
     @Column()
 
     last_score: number;
+    @Column()
+    desc:string
 
 }

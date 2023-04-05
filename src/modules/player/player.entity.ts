@@ -18,7 +18,7 @@ export class Player {
     age:number;
 
     @Column()
-    identify_number:number;
+    identify_number:string;
 
     @Column()
     post_id:number
@@ -29,5 +29,11 @@ export class Player {
     @Column()  //  导入者id
     user_id:number
 
+
+    @Column()
+    team_id:number
+    
+    @Column()
+    nationality:string
    
 }

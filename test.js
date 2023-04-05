@@ -362,3 +362,87 @@ console.log(generateSnakePosition([1, 2, 3, 4, 5, 6, 7, 8, 9], 2));
     ],
   },
 ];
+
+function process(data) {
+  const result = [];
+
+  // 遍历 data 数组
+  data.forEach((obj) => {
+    obj.item_sort_link.forEach((link) => {
+      // 判断 result 数组中是否已存在该 key
+      const item = result.find((item) => item.key === link.key);
+      if (item) {
+        // 如果已存在，则根据 binds 数组长度更新 count
+        item.count += link.binds.length > 0 ? 1 : 0;
+      } else {
+        // 如果不存在，则将该 key 添加到 result 数组中
+        result.push({
+          key: link.key,
+          count: link.binds.length > 0 ? 1 : 0,
+        });
+      }
+    });
+  });
+
+  return result;
+}
+
+function findDataByRackAndTeam(rack_track_number, team_count, data) {
+  const obj = data.find((item) => {
+    return (
+      item.rack_track_number === rack_track_number &&
+      item.team_number_start <= team_count &&
+      item.team_number_end >= team_count
+    );
+  });
+
+  return obj || null;
+}
+
+function generateCompetitionData(data) {
+  const result = [];
+  const roundIds = [
+    'preliminaries',
+    'replay',
+    'semifinal',
+    'small_final',
+    'qualifying',
+    'finals',
+  ];
+
+  roundIds.forEach((roundId, index) => {
+    if (data[roundId] === 0) {
+      return;
+    }
+
+    const groupCount = data[roundId];
+    for (let i = 1; i <= groupCount; i++) {
+      let groupId = i;
+      if (roundId === 'finals') {
+        groupId = groupCount - i + 1;
+      }
+
+      result.push({
+        competition_id: 1,
+        round_id: index,
+        group_id: groupId,
+        time: 0,
+        item_links: '',
+      });
+    }
+  });
+
+  return result;
+}
+
+const data = {
+  preliminaries: 2,
+  replay: 1,
+  semifinal: 1,
+  small_final: 0,
+  qualifying: 0,
+  finals: 1,
+};
+
+const result = generateCompetitionData(data);
+console.log(result);

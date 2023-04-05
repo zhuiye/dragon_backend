@@ -24,8 +24,8 @@ export class DGSetting {
     @PrimaryGeneratedColumn()
     divide_group_id: number;
 
-    // @Column()
-    // rack_track_number:number;
+    @Column()
+    race_track_number:number;
 
     @Column()
 
@@ -44,9 +44,9 @@ export class DGSetting {
     @Column()
     semifinal:number
 
-    // @Column()
+    @Column()
 
-    // small_semifinal:number
+     small_final:number
 
 
     @Column()

@@ -206,6 +206,15 @@
 /*
    绑定之后，那么就可以手动生成 预赛多少组，半决多少组....
 
+   现有一个龙舟竞赛系统,比赛项目有100米直道，200米直道，
+   参加的队伍人数有五队，比赛赛制是 预赛两组，复赛无，半决赛1组，小半决赛1组，排位赛无，决赛1组。
+
+   晋级的规则
+      预赛到半决  ：预赛小组第 1 名，其余进入半决赛；
+      半决到决赛： 前两名进决赛
+
+   需求设计若干表，表示整个比赛的流程
+
 */
 
 CREATE TABLE IF NOT EXISTS `competition_group` (
@@ -225,21 +234,22 @@ CREATE TABLE IF NOT EXISTS `competition_group` (
 # 竞赛日程安排表
  CREATE TABLE IF NOT EXISTS `timeline`(
 
-         `id`:INT UNSIGNED AUTO_INCREMENT ,
+         `timeline_id`:INT UNSIGNED AUTO_INCREMENT ,
          `competition_id` int ,
          `date` BIGINT,
-         什么项目，
-
          `round_type` INT,
-         `round_number` INT, # 第几组
-         `team_count` int , # 队数，
-
+         `group_number` INT,
+         `item_links` varchar(2000) ,
+          PRIMARY KEY ( `timeline_id` )
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
   # 应该有一个编排表:
 
   轮次，组别，时间，龙舟道:(1,2,3,4,5,6,7,8),
+
+
+
 
 
   # 成绩录入表

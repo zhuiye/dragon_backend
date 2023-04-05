@@ -18,12 +18,14 @@ export class PlayerService {
 
   }
 
-  findAll() {
-    return this.repository.find();
+  findAll(param:any) {
+    return this.repository.find({where:param});
   }
 
-  findOne(id: number) {
-    return this.repository.find({where:{player_id:id}});
+  
+
+  findGroup(team_id:any){
+    return this.repository.find({where:{team_id}});
 
   }
 

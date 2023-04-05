@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { SignUpService } from './sign-up.service';
 import { CreateSignUpDto } from './dto/create-sign-up.dto';
 import { UpdateSignUpDto } from './dto/update-sign-up.dto';
@@ -17,9 +17,11 @@ export class SignUpController {
     return this.signUpService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.signUpService.findOne(+id);
+  
+
+  @Get('count')
+  getSignCount(@Query() query:any) {
+    return this.signUpService.getSignCount(query);
   }
 
   @Patch()

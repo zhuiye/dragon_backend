@@ -13,6 +13,7 @@ import { UploadModule } from './modules/upload/upload.module';
 import { SignUpModule } from './modules/sign-up/sign-up.module';
 import { DGSettingModule } from './modules/d-g-setting/d-g-setting.module';
 import { SelectSettingModule } from './modules/select-setting/select-setting.module';
+import { TimelineModule } from './modules/timeline/timeline.module';
 const ormConfig=require('../ormConfig.json')
 
 
@@ -30,7 +31,8 @@ const ormConfig=require('../ormConfig.json')
     UploadModule,
     SignUpModule,
     DGSettingModule,
-    SelectSettingModule
+    SelectSettingModule,
+    TimelineModule
   ],
   providers:[],
   controllers: [],

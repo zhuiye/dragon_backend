@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete,
-  UseInterceptors,UploadedFile,
+  UseInterceptors,UploadedFile, Query,
   // ParseFilePipeBuilder
  } from '@nestjs/common';
 import { PlayerService } from './player.service';
@@ -16,15 +16,19 @@ export class PlayerController {
     return this.playerService.create(createPlayerDto);
   }
   
-  @Get()
-  findAll() {
-    return this.playerService.findAll();
+  // 也可以添加数组
+  @Post('import')
+  addMany(@Body() createPlayerDto: any) {
+     console.log('import',createPlayerDto)
+    return this.playerService.create(createPlayerDto.data);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.playerService.findOne(+id);
+  
+  @Get()
+  findAll(@Query() param:any) {
+    return this.playerService.findAll(param);
   }
+
 
   @Patch()
   update( @Body() updatePlayerDto: UpdatePlayerDto) {

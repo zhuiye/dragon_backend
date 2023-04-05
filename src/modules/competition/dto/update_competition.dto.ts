@@ -1,4 +1,3 @@
-import {ItemLink} from './index'
 export class UpdateCompetitionDto {
     
     readonly name: string;
@@ -13,5 +12,4 @@ export class UpdateCompetitionDto {
 
     readonly end_time:number
 
-    readonly item_link:ItemLink[]
 }
