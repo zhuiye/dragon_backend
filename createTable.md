@@ -255,16 +255,15 @@ CREATE TABLE IF NOT EXISTS `competition_group` (
   # 成绩录入表
 
     CREATE TABLE IF NOT EXISTS `score`(
-      `id`:INT UNSIGNED AUTO_INCREMENT ,
+     `score_id`:INT UNSIGNED AUTO_INCREMENT ,
      `competition_id` int ,
      `team_id` INT UNSIGNED,
      `track_no` INT UNSIGNED ,
-     `model` INT UNSIGNED ,#  采取什么境界方式
      `round_type` INT, # 0 预赛，1 复赛，2半决，3排位赛，4小半决，5 决赛
-     `round_number` INT, // 第几组
+     `group_number` INT, // 第几组
      `score` INT,
      `submit_time` BIGINT,
-     PRIMARY KEY ( `player_id` )
+     PRIMARY KEY ( `score_id` )
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*
@@ -282,8 +281,8 @@ CREATE TABLE IF NOT EXISTS `competition_group` (
 
   CREATE TABLE IF NOT EXISTS `user`(
      `user_id` int auto_increment,
-     `account` int ,
-     `password` INT UNSIGNED,
+     `account` varchar(200) ,
+     `password` INT string,
      `role_id` INT,
      PRIMARY KEY ( `user_id` )
 
@@ -291,7 +290,7 @@ CREATE TABLE IF NOT EXISTS `competition_group` (
 # 角色表
 CREATE TABLE IF NOT EXISTS `role`(
      `role_id` int auto_increment,
-     `roleName` INT UNSIGNED,
+     `roleName` varchar(200),
      PRIMARY KEY ( `role_id` )
 
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;

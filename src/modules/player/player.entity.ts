@@ -35,5 +35,8 @@ export class Player {
     
     @Column()
     nationality:string
+
+    @Column()
+    post_name:string
    
 }

@@ -1,7 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Req, Put,Inject } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Req, Put,Inject, Query } from '@nestjs/common';
 import { CompetitionService } from './competition.service';
-import { CreateCompetitionDto } from './dto';
-import {Response,Request} from 'express'
+import { CreateCompetitionDto, UpdateCompetitionDto } from './dto';
 
 @Controller('competition')
 export class CompetitionController {
@@ -14,19 +13,41 @@ export class CompetitionController {
       return  await this.competitionService.create(competitionDto);
   }
 
-  @Patch(':id')
-  async update(@Param('id') id:string, @Body() updateDto: CreateCompetitionDto) {
-   return await this.competitionService.update(+id,updateDto);
+  @Patch()
+  async update( @Body() updateDto: UpdateCompetitionDto) {
+   return await this.competitionService.update(updateDto);
   }
 
   @Get()
-  async findAll() {
+  async findAll(@Query() query) {
     
+     const {current,pageSize,...rest}=query
+     const data=await   this.competitionService.findAll(rest);
 
-     const data=await   this.competitionService.findAll();
-     
-    return data.reverse()
+    return data.reverse().map((item)=>({...item,item_sort_link:JSON.parse(item.item_sort_link)}))
   }
+
+  @Get("dispatch")
+  async getDispatch(@Query() query) {
+    
+    const data=await this.findAll(query)
+
+    const res=[];
+    for(let item of data){
+      
+      item.item_sort_link.forEach((it)=>{
+        res.push({
+          ...item,
+          item_sort_link:it,
+          item_key:it.item_id+'-'+it.sort_id,
+          rowSpan:item.item_sort_link.length
+        })
+      })
+    }
+    return res
+  }
+
+  
 
   @Get(':id')
   async findOne(@Param('id') id: string) {

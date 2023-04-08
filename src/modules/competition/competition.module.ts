@@ -7,6 +7,8 @@ import { Competition } from './competition.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Competition])],
   controllers: [CompetitionController],
-  providers: [CompetitionService]
+  providers: [CompetitionService],
+  exports: [CompetitionService]
+
 })
 export class CompetitionModule {}

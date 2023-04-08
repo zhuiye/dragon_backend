@@ -27,6 +27,9 @@ export class Competition{
     // 绑定比赛项目
     @Column("simple-json")  // 待罪
     item_sort_link:string
+
+    @Column()  
+    status:number
     
 }
 

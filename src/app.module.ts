@@ -14,6 +14,7 @@ import { SignUpModule } from './modules/sign-up/sign-up.module';
 import { DGSettingModule } from './modules/d-g-setting/d-g-setting.module';
 import { SelectSettingModule } from './modules/select-setting/select-setting.module';
 import { TimelineModule } from './modules/timeline/timeline.module';
+import { ScoreModule } from './modules/score/score.module';
 const ormConfig=require('../ormConfig.json')
 
 
@@ -32,7 +33,8 @@ const ormConfig=require('../ormConfig.json')
     SignUpModule,
     DGSettingModule,
     SelectSettingModule,
-    TimelineModule
+    TimelineModule,
+    ScoreModule
   ],
   providers:[],
   controllers: [],

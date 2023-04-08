@@ -17,8 +17,8 @@ export class TeamService {
 
   }
 
-  findAll() {
-    return this.repository.find();
+  findAll(query:any) {
+    return this.repository.find(query);
   }
 
   findOne(id: number) {

@@ -435,14 +435,107 @@ function generateCompetitionData(data) {
   return result;
 }
 
-const data = {
-  preliminaries: 2,
-  replay: 1,
-  semifinal: 1,
-  small_final: 0,
-  qualifying: 0,
-  finals: 1,
-};
+/*
 
-const result = generateCompetitionData(data);
-console.log(result);
+  比赛表
+  competition_id  
+  item_links
+  round_type
+  group_number 
+  date   
+  team_path_map :
+   [{routh:1.xxxx},{},{},{}]
+    
+   // 我想一下，怎么可以算呢
+   [{},{},{}]
+*/
+
+const data = [
+  {
+    timeline_id: 29,
+    round_type: 0,
+    group_number: 1,
+    race_track_number: 4,
+    assign_list: null,
+  },
+  {
+    timeline_id: 29,
+    round_type: 0,
+    group_number: 2,
+    race_track_number: 4,
+    assign_list: null,
+  },
+  {
+    timeline_id: 29,
+    round_type: 1,
+    group_number: 1,
+    race_track_number: 4,
+    assign_list: null,
+  },
+];
+
+function randomAssign(data, m, n, race_track_number) {
+  // 随机打乱队伍的顺序
+  const shuffledData = data.sort(() => Math.random() - 0.5);
+  const result = [];
+  let assignedCount = 0;
+  for (let i = 0; i < n; i++) {
+    const assignedData = shuffledData.slice(assignedCount, assignedCount + m);
+    if (assignedData.length < m) {
+      break;
+    }
+    assignedCount += assignedData.length;
+    const group = {
+      group_number: i,
+      data: assignedData.map((item) => ({
+        team_name: item.team_name,
+        team_id: item.team_id,
+        path: Math.floor(Math.random() * race_track_number) + 1,
+      })),
+    };
+    result.push(group);
+  }
+  return result;
+}
+
+const ex = [
+  { team_name: '队伍1', team_id: 1 },
+  { team_name: '队伍2', team_id: 2 },
+  { team_name: '队伍3', team_id: 3 },
+  { team_name: '队伍4', team_id: 4 },
+  { team_name: '队伍5', team_id: 5 },
+];
+
+console.log(randomAssign(ex, 2, 2, 4));
+
+/*
+
+  现有 data=[
+     {team_name:'队伍1',team_id:1},
+     {team_name:'队伍2',team_id:2},
+     {team_name:'队伍3',team_id:3},
+     {team_name:'队伍4',team_id:4},
+     {team_name:'队伍5',team_id:5},
+]
+   要求 随即分配成n组，其中 每组不少于m 个队伍，给每个队伍随即分配编号数 path,path的 值 取值根据
+   race_track_number, 如果为4,则path的取值 1到4。
+   如果输入 n=2,m=2 ,那么一个可能的返回值如下:
+     [{
+      group_number:0  //组的编号,
+      data:[
+         {team_name:'队伍1',team_id:1,path:1},
+         {team_name:'队伍2',team_id:2,path:3},
+      ]
+     },{
+      group_number:1  //组的编号,
+      data:[
+         {team_name:'队伍3',team_id:1,path:1},
+         {team_name:'队伍4',team_id:2,path:3},
+         {team_name:'队伍5',team_id:2,path:3},
+      ]
+     }
+    ]
+
+    请编写一个js函数处理，
+
+*/

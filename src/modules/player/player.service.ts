@@ -22,6 +22,15 @@ export class PlayerService {
     return this.repository.find({where:param});
   }
 
+  async findByIds(ids: number[]): Promise<Player[]> {
+    return await this.repository
+      .createQueryBuilder('player')
+      .whereInIds(ids)
+      .getMany();
+  }
+
+  
+
   
 
   findGroup(team_id:any){

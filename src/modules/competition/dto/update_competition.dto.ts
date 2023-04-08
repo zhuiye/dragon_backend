@@ -1,4 +1,5 @@
 export class UpdateCompetitionDto {
+    id:any;
     
     readonly name: string;
 

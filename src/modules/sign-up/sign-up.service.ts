@@ -4,6 +4,7 @@ import { UpdateSignUpDto } from './dto/update-sign-up.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SignUp } from './entities/sign-up.entity';
+import { Team } from '../team/entities/team.entity';
 
 function mapCount(data) {
 
@@ -36,7 +37,7 @@ function mapCount(data) {
 export class SignUpService {
   constructor(
     @InjectRepository(SignUp)
-    private repository: Repository<SignUp>
+    private repository: Repository<SignUp>,
   ) {}
 
   create(createUserDto: CreateSignUpDto) {
@@ -44,8 +45,10 @@ export class SignUpService {
 
   }
 
-  findAll() {
-    return this.repository.find();
+  async findAll(query:any) {
+    const data=await this.repository.find({where:query});
+    return data.map((item)=>({...item,item_relation:JSON.parse(item.item_relation)}))
+
   }
 
   async getSignCount(where:any){
@@ -54,8 +57,7 @@ export class SignUpService {
     */
      const data= await this.repository.find({where});
      const obj=data.map((item)=>({...item,item_relation:JSON.parse(item.item_relation)}))
-      
-      return mapCount(obj);
+     return mapCount(obj);
     
   }
 

@@ -39,6 +39,9 @@ export class SignUp {
     submit_time:number
     @Column()
     status:number
+
+    @Column()
+    reason:string
    
 }
 
