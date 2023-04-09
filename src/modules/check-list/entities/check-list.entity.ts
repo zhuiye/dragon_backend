@@ -1,9 +1,9 @@
 
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 @Entity()
-export class Timeline {
+export class CheckList {
     @PrimaryGeneratedColumn()
-    timeline_id: number;
+    check_id: number;
 
     @Column()
     competition_id:number;
@@ -13,25 +13,21 @@ export class Timeline {
     @Column()
     group_number:number;
 
+  
+    @Column()
+    team_id:any;
 
     @Column()
-    date:number;
+    status:number;
 
     @Column() 
-    item_sort_link:string;  
-
-    @Column()
-    race_track_number:number;
-
-
-    @Column()
-    assign_list:string
+    down:string;  
 
     @Column()
     item_key:string;
 
-   
 }
+
 
 
 

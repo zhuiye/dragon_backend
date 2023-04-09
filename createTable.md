@@ -42,6 +42,8 @@
     PRIMARY KEY ( `competition_item_id` )
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+
   /*
       competition_item_id:1
       competition_item_inner_id:1,
@@ -268,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `competition_group` (
 
   # 犯规表
    CREATE TABLE IF NOT EXISTS `foul`(
-     `foul_id`:INT UNSIGNED AUTO_INCREMENT ,
+     `foul_id` INT UNSIGNED AUTO_INCREMENT ,
      `competition_id` int ,
      `team_id` INT UNSIGNED,
      `round_type` INT,
@@ -278,6 +280,20 @@ CREATE TABLE IF NOT EXISTS `competition_group` (
      `desc` varchar(300)
      PRIMARY KEY ( `foul_id` )
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+  # 检录表
+  CREATE TABLE IF NOT EXISTS `check_list`(
+     `check_id` INT UNSIGNED AUTO_INCREMENT ,
+     `competition_id` INT,
+     `item_key` VARCHAR(2000),
+     `team_id` INT UNSIGNED,
+     `round_type` INT,
+     `group_number` INT UNSIGNED,
+     `status` INT,
+     `down` VARCHAR(5000),
+     PRIMARY KEY (`check_id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 /*
       都

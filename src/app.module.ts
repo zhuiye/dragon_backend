@@ -16,6 +16,8 @@ import { SelectSettingModule } from './modules/select-setting/select-setting.mod
 import { TimelineModule } from './modules/timeline/timeline.module';
 import { ScoreModule } from './modules/score/score.module';
 import { FoulModule } from './modules/foul/foul.module';
+import { CheckListModule } from './modules/check-list/check-list.module';
+
 const ormConfig=require('../ormConfig.json')
 
 
@@ -37,6 +39,7 @@ const ormConfig=require('../ormConfig.json')
     TimelineModule,
     ScoreModule,
     FoulModule,
+    CheckListModule,
   ],
   providers:[],
   controllers: [],
