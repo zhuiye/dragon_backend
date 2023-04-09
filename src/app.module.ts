@@ -15,6 +15,7 @@ import { DGSettingModule } from './modules/d-g-setting/d-g-setting.module';
 import { SelectSettingModule } from './modules/select-setting/select-setting.module';
 import { TimelineModule } from './modules/timeline/timeline.module';
 import { ScoreModule } from './modules/score/score.module';
+import { FoulModule } from './modules/foul/foul.module';
 const ormConfig=require('../ormConfig.json')
 
 
@@ -34,7 +35,8 @@ const ormConfig=require('../ormConfig.json')
     DGSettingModule,
     SelectSettingModule,
     TimelineModule,
-    ScoreModule
+    ScoreModule,
+    FoulModule,
   ],
   providers:[],
   controllers: [],

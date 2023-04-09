@@ -14,6 +14,7 @@ import { CompetitionModule } from '../competition/competition.module';
 @Module({
   imports: [TypeOrmModule.forFeature([SignUp]),PlayerModule,TeamModule,CompetitionModule],
   controllers: [SignUpController],
-  providers: [SignUpService]
+  providers: [SignUpService],
+  exports:[SignUpService]
 })
 export class SignUpModule {}

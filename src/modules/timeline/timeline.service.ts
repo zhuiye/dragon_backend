@@ -34,8 +34,31 @@ export class TimelineService {
 
   }
 
+  async updateMultipleRecords(updateRecord: any[]) {
+    const queryRunner = this.repository.manager.connection.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+  
+    try {
+      for (const record of updateRecord) {
+        await queryRunner.manager.update(
+          Timeline,
+          { competition_id: record.competition_id, item_key: record.item_key, round_type: record.round_type, group_number: record.group_number },
+          { assign_list: record.assign_list }
+        );
+      }
+  
+      return await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+      throw err;
+    } finally {
+      await queryRunner.release();
+    }
+  }
   remove(delDto: any) {
     return this.repository.delete(delDto)
 
   }
 }
+

@@ -7,6 +7,7 @@ import { Timeline } from './entities/timeline.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Timeline])],
   controllers: [TimelineController],
-  providers: [TimelineService]
+  providers: [TimelineService],
+  exports:[TimelineService]
 })
 export class TimelineModule {}

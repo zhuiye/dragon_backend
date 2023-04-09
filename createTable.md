@@ -266,6 +266,19 @@ CREATE TABLE IF NOT EXISTS `competition_group` (
      PRIMARY KEY ( `score_id` )
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+  # 犯规表
+   CREATE TABLE IF NOT EXISTS `foul`(
+     `foul_id`:INT UNSIGNED AUTO_INCREMENT ,
+     `competition_id` int ,
+     `team_id` INT UNSIGNED,
+     `round_type` INT,
+     `group_number`  INT UNSIGNED,
+     `foul_type` INT,
+     `path`  INT,
+     `desc` varchar(300)
+     PRIMARY KEY ( `foul_id` )
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 /*
       都
 

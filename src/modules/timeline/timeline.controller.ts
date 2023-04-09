@@ -46,6 +46,8 @@ export class TimelineController {
 
         return {
           ...item,
+          item_sort_link:link,
+          assign_list:JSON.parse(item.assign_list),
           format_date:item.date?timestampToDateTimeString(item.date):0,
           content_name:link.item_name+' '+link.sort_name+''+getRoundMap(item.round_type)+'第'+(item.group_number)+'组'
         }
@@ -65,11 +67,16 @@ export class TimelineController {
       const groupIndex = acc.findIndex((group) => group.round_type === round_type);
     
       if (groupIndex !== -1) {
+        acc[groupIndex].group_count=item.group_number
         acc[groupIndex].data.push(item);
       } else {
         const link=JSON.parse(item.item_sort_link)
         acc.push({
           round_type,
+          can_assign:!!item.assign_list,
+          group_count:item.group_number,
+          item_key:item.item_key,
+          competition_id:item.competition_id,
           race_track_number:item.race_track_number,
           title:link.item_name+' '+link.sort_name+''+getRoundMap(item.round_type),
           data: [item],
@@ -84,12 +91,25 @@ export class TimelineController {
         const res=[]
  
         for(let item of data){
-            const {race_track_number}=item;
+            const {race_track_number,assign_list}=item;
+
+            const assignList=JSON.parse(assign_list)
             for(let i=1;i<=race_track_number;i++){
-              res.push({
-                ...item,
+              
+              const teamWithPath=assignList?assignList.find((it)=>it.path===i):null
+
+              const pathWithTeamName={
                 path:i,
                 team_name:'',
+              }
+
+              if(teamWithPath){
+                pathWithTeamName.team_name=teamWithPath.team_name
+              }
+              
+              res.push({
+                ...item,
+               ...pathWithTeamName,
                 format_date:item.date?timestampToDateTimeString(item.date):0,
               })
             }
@@ -149,6 +169,12 @@ export class TimelineController {
   @Patch()
   update(@Body() updateTimelineDto: UpdateTimelineDto) {
     return this.timelineService.update(updateTimelineDto);
+  }
+
+  @Patch('update')
+  updateAssign(@Body() updateTimelineDto: any) {
+
+    return this.timelineService.updateMultipleRecords(updateTimelineDto.data);
   }
 
   @Delete()

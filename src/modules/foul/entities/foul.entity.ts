@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne,JoinColumn } from "typeorm";
 
 @Entity()
-export class Score {
+export class Foul {
     @PrimaryGeneratedColumn()
-    score_id: number;
+    foul_id: number;
     
     @Column()
     competition_id: number;
@@ -15,23 +15,25 @@ export class Score {
     round_type:number;
     
     @Column()
-    track_no: number;
+    path: number;
 
     @Column()
     group_number: number;
+    @Column()
+    foul_type: number;
+
 
     @Column()
-    score:number;
+    desc:string
 
     @Column()
-    submit_time:number
+    item_key:string
 
     @Column()
     content_name:string
 
-    @Column()
-    qualifications:string
 
 
 }
+
 

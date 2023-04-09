@@ -67,15 +67,26 @@ export class SignUpController {
 
   @Get('team')
   async getTeams(@Query() query){
-    const data= await  this.signUpService.findAll(query);
+    const {item_key,...rest}=query;
+
+    const data= await  this.signUpService.findAll(rest);
+
     const teamS=this.teamService
 
     const res=[]
 
     async function addOutData(object){
+      
+      const item_relation=object.item_relation;
 
-      const teams=await teamS.findOne(object.team_id)
-      res.push(teams[0])
+      const item=item_relation.filter((it)=>{
+        return it.key===item_key
+      })[0]
+
+      if(item.binds&&item.binds.length>0){
+        const teams=await teamS.findOne(object.team_id)
+        res.push(teams[0])
+      }
     }
     
     for (let i = 0; i < data.length; i++) {
