@@ -98,6 +98,24 @@ export class SignUpController {
     return res
 
   }
+  @Get('players')
+  async getSignTeamsPlayer(@Query() query){
+    const {item_key,...rest}=query
+     const  data=await this.get(rest)
+     const item_relation=data[0].item_relation;
+     const items=item_relation.find((it)=>it.key===item_key)
+
+     let res=[];
+
+     res=items.players
+     
+
+     return res
+
+
+  }
+
+
 
   
 

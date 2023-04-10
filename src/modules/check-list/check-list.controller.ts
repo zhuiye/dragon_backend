@@ -2,14 +2,21 @@ import { Controller, Get, Post, Body, Patch, Param, Delete,Query } from '@nestjs
 import { CheckListService } from './check-list.service';
 import { CreateCheckListDto } from './dto/create-check-list.dto';
 import { UpdateCheckListDto } from './dto/update-check-list.dto';
+import { TeamService } from '../team/team.service';
+import { PlayerService } from '../player/player.service';
 
 @Controller('check-list')
 export class CheckListController {
-  constructor(private readonly checkListService: CheckListService) {}
+  constructor(private readonly checkListService: CheckListService,
+    private readonly teamService: TeamService,
+    private readonly playService: PlayerService,
+    ) {
+
+  }
 
   @Post()
-  create(@Body() createCheckListDto: CreateCheckListDto) {
-    return this.checkListService.create(createCheckListDto);
+  create(@Body() createCheckListDto: any) {
+    return this.checkListService.create(createCheckListDto.data);
   }
 
   @Get()

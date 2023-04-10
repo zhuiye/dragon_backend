@@ -15,7 +15,7 @@ export class CheckList {
 
   
     @Column()
-    team_id:any;
+    team_id:number;
 
     @Column()
     status:number;
@@ -25,6 +25,15 @@ export class CheckList {
 
     @Column()
     item_key:string;
+
+    @Column()
+    path:number
+
+    @Column()
+    team_name:string
+
+    @Column()
+    players:string
 
 }
 

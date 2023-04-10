@@ -31,6 +31,11 @@ export class Foul {
 
     @Column()
     content_name:string
+    @Column()
+    creator:string
+
+    @Column()
+    qualification:string
 
 
 

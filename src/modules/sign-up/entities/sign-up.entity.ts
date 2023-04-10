@@ -25,9 +25,6 @@ export class SignUp {
 
     team_id:number;
 
-    @Column()
-    player_ids:string;
-
   
     /*
         [{itemId:'',sortItemId:'',player_ids:[]}]

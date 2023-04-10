@@ -32,6 +32,9 @@ export class Score {
     @Column()
     qualifications:string
 
+    @Column()
+    item_key:string
+
 
 }
 

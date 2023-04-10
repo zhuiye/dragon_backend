@@ -3,29 +3,8 @@ import { ScoreService } from './score.service';
 import { CreateScoreDto } from './dto/create-score.dto';
 import { UpdateScoreDto } from './dto/update-score.dto';
 import { TeamService } from '../team/team.service';
+import { filterGroupFirst, getGroupFirstByLen,rankTeams } from './utils';
 
-
-function filterGroupFirst(data) {
-  // 将数据按组号进行分组
-  const groups = data.reduce((acc, cur) => {
-    if (!acc[cur.group_number]) {
-      acc[cur.group_number] = [];
-    }
-    acc[cur.group_number].push(cur);
-    return acc;
-  }, {});
-
-  // 遍历每个组，剔除得分最低的数据
-  const result = [];
-  Object.keys(groups).forEach(groupNumber => {
-    const groupData = groups[groupNumber];
-    const minScore = Math.min(...groupData.map(item => item.score));
-    const filteredGroupData = groupData.filter(item => item.score > minScore);
-    result.push(...filteredGroupData);
-  });
-
-  return result;
-}
 
 
 @Controller('score')
@@ -56,7 +35,21 @@ export class ScoreController {
       
     }
     return data
+
+   
   }
+
+  @Get('group')
+  async group(@Query() query){
+      const data=await  this.findAll(query)
+
+      const res=rankTeams(data as any)
+
+      return res
+      
+  }
+
+
 
   @Get('semifinal')
   async findSemifinal(@Query() query) {
@@ -77,17 +70,42 @@ export class ScoreController {
           }
       })
 
-      // 然后呢，
-
-      console.log(data)
-      
-    
-
-
    }
-
    
     return data
+  }
+  // 处理决赛
+  @Get('final')
+  async findFinal(@Query() query)
+  {
+    const {rule_id,...rest}=query
+    let  data=null
+    switch(rule_id){
+      // 预赛小组第一名，半决赛 1 组，前两名进决赛
+      case '600' :
+        const  preScores= await this.findAll({...rest,round_type:0});
+        const preFirst=getGroupFirstByLen(preScores,1)
+
+
+        const  semifinalList= await this.findAll({...rest,round_type:2});
+
+
+        const semifinalFirst= getGroupFirstByLen(semifinalList,2)
+
+
+
+        data=[...preFirst,...semifinalFirst].sort((a,b)=>a.score-b.score).map((item,index:any)=>{
+          return {
+            ...item,
+            no:index+1
+          }
+      })
+      
+
+    }
+
+    return data
+    
   }
 
 
