@@ -35,7 +35,7 @@ export class Foul {
     creator:string
 
     @Column()
-    qualification:string
+    qualifications:string
 
 
 
