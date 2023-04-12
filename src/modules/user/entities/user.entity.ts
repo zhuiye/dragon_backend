@@ -12,6 +12,11 @@ export class User {
     password: string;
     @Column()
     role_id: number;
+    @Column()
+    name: string;
+    @Column()
+    avatar: string;
+
 
 
 }

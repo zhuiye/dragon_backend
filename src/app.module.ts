@@ -17,6 +17,7 @@ import { TimelineModule } from './modules/timeline/timeline.module';
 import { ScoreModule } from './modules/score/score.module';
 import { FoulModule } from './modules/foul/foul.module';
 import { CheckListModule } from './modules/check-list/check-list.module';
+import {  RoleModule } from './modules/role/role.module';
 
 const ormConfig=require('../ormConfig.json')
 
@@ -40,6 +41,7 @@ const ormConfig=require('../ormConfig.json')
     ScoreModule,
     FoulModule,
     CheckListModule,
+    RoleModule,
   ],
   providers:[],
   controllers: [],

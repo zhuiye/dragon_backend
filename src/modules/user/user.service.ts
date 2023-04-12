@@ -18,13 +18,12 @@ export class UserService {
 
   }
 
-  findAll() {
-    return this.repository.find();
+  findAll(query:any) {
+    return this.repository.find({where:query});
   }
 
   findOne(id: number) {
     return this.repository.find({where:{user_id:id}});
-
   }
 
   update(updateUserDto: UpdateUserDto) {
