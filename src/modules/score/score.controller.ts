@@ -4,13 +4,17 @@ import { CreateScoreDto } from './dto/create-score.dto';
 import { UpdateScoreDto } from './dto/update-score.dto';
 import { TeamService } from '../team/team.service';
 import { filterGroupFirst, getGroupFirstByLen,rankTeams } from './utils';
+import { RoleInterfaceService } from '../role/role.service';
+import { UserService } from '../user/user.service';
 
 
 
 @Controller('score')
 export class ScoreController {
   constructor(private readonly scoreService: ScoreService,
-    private readonly teamService: TeamService,) {}
+    private readonly teamService: TeamService,
+    private readonly roleService: RoleInterfaceService,
+    private readonly userService: UserService,) {}
 
   @Post()
   create(@Body() createScoreDto: CreateScoreDto) {
@@ -22,10 +26,23 @@ export class ScoreController {
   async findAll(@Query() query) {
     const  data= await this.scoreService.findAll(query);
     const teamS=this.teamService;
+    const roleS=this.roleService
+    const userS=this.userService
+
     async function addOutData(object){
 
       const teams=await teamS.findOne(object.team_id)
       object.team=teams[0]
+      const user= await userS.findAll({
+        user_id:object.user_id
+      });
+  
+                
+      const role= await roleS.findOne(user[0].role_id)
+      object.user={
+        ...user[0],
+         ...role[0]
+      }
 
     }
     

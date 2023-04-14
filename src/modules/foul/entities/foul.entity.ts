@@ -37,6 +37,9 @@ export class Foul {
     @Column()
     qualifications:string
 
+    @Column()
+    user_id:number
+
 
 
 }

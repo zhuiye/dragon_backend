@@ -35,6 +35,9 @@ export class Score {
     @Column()
     item_key:string
 
+    @Column()
+    user_id:string
+
 
 }
 

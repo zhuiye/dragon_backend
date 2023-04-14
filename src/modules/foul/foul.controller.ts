@@ -2,17 +2,18 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { FoulService } from './foul.service';
 import { CreateFoulDto } from './dto/create-foul.dto';
 import { UpdateFoulDto } from './dto/update-foul.dto';
-import { CompetitionService } from '../competition/competition.service';
-import { TimelineService } from '../timeline/timeline.service';
 import { TeamService } from '../team/team.service';
+import { RoleInterfaceService } from '../role/role.service';
+import { UserService } from '../user/user.service';
 
 
 @Controller('foul')
 export class FoulController {
   constructor(private readonly foulService: FoulService,
-    private readonly competitionService: CompetitionService,
-    private readonly timeLineService: TimelineService,
     private readonly teamService: TeamService,
+    private readonly roleService: RoleInterfaceService,
+    private readonly userService: UserService,
+
 
     ) {}
 
@@ -29,11 +30,22 @@ export class FoulController {
     const  data=await this.foulService.findAll();
 
     const teamS=this.teamService
+    const roleS=this.roleService
+    const userS=this.userService
 
     async function  addTeam(ob){
         const teams=await teamS.findOne(ob.team_id)
         ob.team=teams[0]
-
+        const user= await userS.findAll({
+          user_id:ob.user_id
+        });
+    
+                  
+        const role= await roleS.findOne(user[0].role_id)
+        ob.user={
+          ...user[0],
+           ...role[0]
+        }
     }
 
     for(let item of data){

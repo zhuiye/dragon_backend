@@ -6,9 +6,12 @@ import { Foul } from './entities/foul.entity';
 import { CompetitionModule } from '../competition/competition.module';
 import { TimelineModule } from '../timeline/timeline.module';
 import { TeamModule } from '../team/team.module';
+import { RoleModule } from '../role/role.module';
+import { UserModule } from '../user/user.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Foul]),CompetitionModule,TeamModule,TimelineModule],
+  imports: [TypeOrmModule.forFeature([Foul]),CompetitionModule,TeamModule,TimelineModule,
+  RoleModule,UserModule],
   controllers: [FoulController],
   providers: [FoulService]
 })
