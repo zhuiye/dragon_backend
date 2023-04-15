@@ -38,6 +38,9 @@ export class Score {
     @Column()
     user_id:string
 
+    @Column() // 0,未确认，1已确认
+    is_confirm:number
+
 
 }
 
