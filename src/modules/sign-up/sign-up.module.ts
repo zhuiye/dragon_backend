@@ -9,10 +9,11 @@ import { PlayerService } from '../player/player.service';
 import { PlayerModule } from '../player/player.module';
 import { TeamModule } from '../team/team.module';
 import { CompetitionModule } from '../competition/competition.module';
+import { TimelineModule } from '../timeline/timeline.module';
 
 
 @Module({
-  imports: [TypeOrmModule.forFeature([SignUp]),PlayerModule,TeamModule,CompetitionModule],
+  imports: [TypeOrmModule.forFeature([SignUp]),PlayerModule,TeamModule,CompetitionModule,TimelineModule],
   controllers: [SignUpController],
   providers: [SignUpService],
   exports:[SignUpService]

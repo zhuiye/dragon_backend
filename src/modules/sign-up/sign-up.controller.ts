@@ -5,6 +5,7 @@ import { UpdateSignUpDto } from './dto/update-sign-up.dto';
 import { PlayerService } from '../player/player.service';
 import { CompetitionService } from '../competition/competition.service';
 import { TeamService } from '../team/team.service';
+import { TimelineService } from '../timeline/timeline.service';
 
 @Controller('sign-up')
 export class SignUpController {
@@ -12,7 +13,7 @@ export class SignUpController {
     private readonly playerService: PlayerService,
     private readonly competitionService: CompetitionService,
     private readonly teamService: TeamService,
-    
+    private readonly timelineService: TimelineService,
     ) {
 
   }
@@ -73,6 +74,7 @@ export class SignUpController {
 
     const teamS=this.teamService
 
+
     const res=[]
 
     async function addOutData(object){
@@ -120,8 +122,20 @@ export class SignUpController {
   
 
   @Get('count')
-  getSignCount(@Query() query:any) {
-    return this.signUpService.getSignCount(query);
+  async getSignCount(@Query() query:any) {
+    const timelineService=this.timelineService
+    
+    const data=await  this.signUpService.getSignCount(query);
+
+    const is_generate=async (ob)=>{
+          const findData=await timelineService.findAll({competition_id:query.competition_id,item_key:ob.key})
+          ob.is_generate=findData.length>0?true:false
+    }
+
+    for(let item of data){
+      await is_generate(item)
+    }
+    return data
   }
 
   @Patch()

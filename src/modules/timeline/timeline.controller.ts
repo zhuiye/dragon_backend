@@ -93,7 +93,7 @@ export class TimelineController {
         for(let item of data){
             const {race_track_number,assign_list}=item;
 
-            const assignList=JSON.parse(assign_list)
+            const assignList=!!assign_list?JSON.parse(assign_list):null
             for(let i=1;i<=race_track_number;i++){
               
               const teamWithPath=assignList?assignList.find((it)=>it.path===i):null
