@@ -1,4 +1,5 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty,IsString ,IsInt} from 'class-validator';
+
 export class CreateCompetitionDto {
     
     @IsNotEmpty()
@@ -13,7 +14,8 @@ export class CreateCompetitionDto {
     readonly sign_up_end_time: number;
 
     readonly start_time: number;
-
+    
+    @IsInt()
     readonly end_time:number;
 
     item_sort_link:string
