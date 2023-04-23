@@ -18,12 +18,16 @@ import { ScoreModule } from './modules/score/score.module';
 import { FoulModule } from './modules/foul/foul.module';
 import { CheckListModule } from './modules/check-list/check-list.module';
 import {  RoleModule } from './modules/role/role.module';
+import {DevtoolsModule} from '@nestjs/devtools-integration'
 
 const ormConfig=require('../ormConfig.json')
 
 
 @Module({
   imports: [
+    // DevtoolsModule.register({
+    //   http: process.env.NODE_ENV !== 'production',
+    // }),
     TypeOrmModule.forRoot(ormConfig),
     CompetitionModule,
     CompetitionItemModule,
